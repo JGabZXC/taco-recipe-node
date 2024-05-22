@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Recipe</title>
+</head>
+<body>
+    <main>
+        <section class="wrapper hero-selection">
+            <h1>Choose your Taco Recipe!</h1>
+            <div class="form-container">
+                <form action="/recipe" method="post">
+                    <button type="submit" value="chicken" name="choice">🍗</button>
+                    <button type="submit" value="beef" name="choice">🥩</button>
+                    <button type="submit" value="fish" name="choice">🐟</button>
+                </form>
+            </div>
+        </section>
+
+        <section class="wrapper recipe-container">
+            <% if(noData === false) { %>
+                <div class="recipe-title">
+                    <h1>Please Select Taco</h1>
+                </div>
+                <% } else { %>
+                    <div class="recipe-title">
+                        <h1>
+                            <%= recipe.name %>
+                        </h1>
+                    </div>
+                    <div class="recipe-price">
+                        <h2>
+                            $<%= recipe.price %>
+                        </h2>
+                    </div>
+                    <div class="recipe-ingredients">
+                        <ul class="first">
+                            <li>Protein
+                                <ul class="ul-con protein-con">
+                                    <li>
+                                        <%= recipe.ingredients.protein.name %>
+                                    </li>
+                                    <li>
+                                        <%= recipe.ingredients.protein.preparation %>
+                                    </li>
+                                </ul>
+                            </li>
+        
+                            <li>Salsa
+                                <ul class="ul-con salsa-con">
+                                    <li>
+                                        <%= recipe.ingredients.salsa.name %>
+                                    </li>
+                                    <li>
+                                        Spiciness: <%= recipe.ingredients.salsa.spiciness %>
+                                    </li>
+                                </ul>
+                            </li>
+        
+                            <li>Toppings
+                                <ul class="ul-con toppings-arr-con">
+                                    <% recipe.ingredients.toppings.forEach((topping) => { %>
+                                    <li>
+                                        <%= topping.quantity %> of <%= topping.name %>
+                                        <ul>
+                                            <% topping.ingredients.forEach((ingredient, index) => { %>
+                                                <li>
+                                                    <!-- <%= ingredient %>
+                                                    <% if (index < topping.ingredients.length - 1) { %>,<% } %> -->
+
+                                                    <%= ingredient %><% if (index < topping.ingredients.length - 1) { %>,<% } %>
+                                                </li> 
+                                            <% }); %>
+                                        </ul>
+                                    </li>
+                                    <% }); %>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                <% } %>
+            
+        </section>
+
+        
+    </main>
+</body>
+</html>
